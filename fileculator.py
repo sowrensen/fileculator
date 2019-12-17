@@ -14,7 +14,6 @@
 
 import os
 from pathlib import Path
-from hurry.filesize import size, alternative
 from datetime import datetime
 import json
 
@@ -42,7 +41,7 @@ def calculate_size(project_root, project_depth):
         total_size = 0
         total_size = sum(
             file.stat().st_size for file in public_directory.glob('**/*') if file.is_file())  # Total file size in bytes
-        print('%s has %s of files' % (public_directory, size(total_size, system=alternative)))
+        print('%s has %s of files' % (public_directory, human_readable_size(total_size)))
         # Json file path, we'll be keeping it inside storage/app, since
         # this file is not and should not be included in any vcs.
         path = public_directory.joinpath('storage.json')
@@ -59,6 +58,20 @@ def calculate_size(project_root, project_depth):
         except IOError as error:
             print(error)
             continue
+
+
+def human_readable_size(nbytes):
+    """
+    Converts bytes to human readbale form like MB, KB, GB etc.
+    Taken from https://bit.ly/2rXUMg9
+    """
+    suffixes = ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')
+    i = 0
+    while nbytes >= 1024 and i < len(suffixes) - 1:
+        nbytes /= 1024.
+        i += 1
+    f = ('%.2f' % nbytes).rstrip('0').rstrip('.')
+    return '%s %s' % (f, suffixes[i])
 
 
 def run():
