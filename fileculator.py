@@ -80,4 +80,5 @@ def run():
         print('Error! Please define necessary keys in .env file.')
 
 
-run()
+if __name__ == "__main__":
+    run()
