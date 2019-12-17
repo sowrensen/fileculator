@@ -49,7 +49,7 @@ def calculate_size(project_root, project_depth):
         # Prepare the data as a dictionary
         data = {
             'size': total_size,
-            'written_on': str(datetime.now())
+            'written_at': str(datetime.now())
         }
         # Try to write the data into the file, else throw error and continue
         try:

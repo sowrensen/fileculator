@@ -1,7 +1,7 @@
 # Fileculator
 
 Calculates the total size of a user defined directory and stores the data
-in a json file. It created to calculate total size of user uploaded files
+in a json file. It is created to calculate total size of user uploaded files
 in CGIT digital ocean server. It targets all **Laravel** projects and puts
 the calculated file size as a json file in `storage/app` directory. You
 should run the file as a cron job.
@@ -49,10 +49,10 @@ file looks like:
 ```
 {
     "size": 112, 
-    "written_on": "2019-12-17 15:08:42.249758"
+    "written_at": "2019-12-17 15:08:42.249758"
 }
 ```
 
-Laravel can use the information in various purpose. Since this is an expensive
-operation, you should run the script as a cron job so that it doesn't interferes
+Laravel can use the information for various purposes. Since this is an expensive
+operation, you should run the script as a cron job so that it doesn't interfere
 with http response.
