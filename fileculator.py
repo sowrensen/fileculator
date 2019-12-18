@@ -32,7 +32,9 @@ def calculate_size(project_root, project_depth):
     # Search and get the Laravel projects, in this case, we are
     # targeting directories which has /storage/app subdirectory,
     # i.e. where user uploaded files reside.
+    print('Searching for directories...\n')
     PUBLIC_PATH = ROOT_DIRECTORY.glob(TARGET_LARAVEL_DIRECTORY)
+    count = 0
     for public_directory in PUBLIC_PATH:
         # Check if it's not a directory, mainly for safekeeping
         if not public_directory.is_dir():
@@ -55,9 +57,11 @@ def calculate_size(project_root, project_depth):
             with open(str(path), 'w') as storage_file:
                 json.dump(data, storage_file)
             storage_file.close()
+            count += 1
         except IOError as error:
             print(error)
             continue
+    print('\nWritten in %d directories.' % count)
 
 
 def human_readable_size(nbytes):
@@ -80,7 +84,7 @@ def run():
     """
     try:
         valid_depths = (1, 2)
-        print('Reading variables...')
+        print('\nReading variables...\n')
         project_root = os.environ['PROJECT_ROOT']
         project_depth = os.environ['PROJECT_DEPTH']
         if int(project_depth) not in valid_depths:
