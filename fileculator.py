@@ -62,7 +62,7 @@ def calculate_size(project_root, project_depth):
             print(error)
             continue
     print('\nWritten in %d directories.' % count)
-    print('\nExecution finished at: ' + datetime.now())
+    print('\nExecution finished at: ' + str(datetime.now()))
 
 
 def human_readable_size(nbytes):
