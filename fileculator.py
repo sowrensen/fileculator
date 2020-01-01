@@ -62,6 +62,7 @@ def calculate_size(project_root, project_depth):
             print(error)
             continue
     print('\nWritten in %d directories.' % count)
+    print('\nExecution finished at: ' + datetime.now())
 
 
 def human_readable_size(nbytes):
@@ -84,7 +85,7 @@ def run():
     """
     try:
         valid_depths = (1, 2)
-        print('\nReading variables...\n')
+        print('Reading environment variables from .env file...\n')
         project_root = os.environ['PROJECT_ROOT']
         project_depth = os.environ['PROJECT_DEPTH']
         if int(project_depth) not in valid_depths:
