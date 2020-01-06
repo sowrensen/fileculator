@@ -1,16 +1,14 @@
 #! /usr/bin/python3
-#
-# ------------------------------------------------
+
+# ------------------------------------------------------------
 # fileculator.py
-# ------------------------------------------------
-# Calculates the total size of a user defined directory and stores the data
-# in a json file. It created to calculate total size of user uploaded files
-# in CGIT digital ocean server. It targets all Laravel projects and puts
-# the calculated file size as a json file in storage/app directory. You
-# should run the file as a cron job.
+# ------------------------------------------------------------
+# This scripts calculates the total size of the 'storage/app'
+# directory (user uploaded files) of multiple Laravel apps. 
+# Define the project root and depth in .env file and run 
+# the script as a cron job.
 #
 # Author: Sowren Sen
-# Email: sowrensen@gmail.com
 
 import os
 from pathlib import Path
@@ -20,8 +18,8 @@ import json
 
 def calculate_size(project_root, project_depth):
     """
-    Calculate total size of user uploaded files in Laravel projects and
-    write the size information in a json file inside apps public directory.
+    Calculate total size of user uploaded files in storage/app directory and
+    write the size information in a json file inside the public directory.
     """
     # Get the absolute path
     ROOT_DIRECTORY = Path.joinpath(Path.home(), project_root)
@@ -52,7 +50,7 @@ def calculate_size(project_root, project_depth):
             'size': total_size,
             'written_at': str(datetime.now())
         }
-        # Try to write the data into the file, else throw error and continue
+        # Try to write the data into the file, else throw error and continue.
         try:
             with open(str(path), 'w') as storage_file:
                 json.dump(data, storage_file)
