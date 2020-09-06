@@ -8,6 +8,13 @@ the script as a cron job.
 Changelog
 ------
 
+#### Version 2.0.0
+
+ - Added option to determine whole project size.
+ - Improved code structure.
+ - Added a `requirement.txt` file to work with usual virtualenv.
+ - Removed Pipenv support.
+
 #### Version 1.0.1
 
  - Fixed bug related to project root.
@@ -21,19 +28,20 @@ Usage
 
 ### Setup
 
-Run following commands in your terminal to copy this repository and for primary setup. 
-You will need [Pipenv](https://github.com/pypa/pipenv) to use this script however.
+Run following commands in your terminal to copy this repository and for primary setup.
 
 ```
 git clone https://github.com/sowrensen/fileculator.git
 cd fileculator
-pipenv install
+python -m venv ./venv
+. venv/bin/activate
+pip install -r requirements.txt
 cp .env.example .env
 ```
 
-### Enviroment Variables
+### Environment Variables
 
-Before you can run the script, you've to declare two environment variables 
+Before you can run the script, you've to declare a few environment variables 
 in `.env` file. An example `.env` file has been added for your consistency. 
 Just copy the `.env.example` file as `.env` and define the values for the 
 following two keys.
@@ -44,7 +52,7 @@ following two keys.
   some place which is in root directory, you have to run the 
   script as root. You know how Linux works, right?
  
- - **PROJECT_DEPTH**: This value defines the searching depths for directories.
+ - **PROJECT_DEPTH** (1, 2): This key defines the searching depths for directories.
  The value should be either 1 or 2. If you have subdirectories in your root 
  directory, you have to put 2, else put 1. For example, suppose this is the file
  structure inside your `PROJECT_ROOT`:
@@ -61,6 +69,9 @@ following two keys.
    In the above case, you have to put depth value 2. If there is only one
    level of application directory, you can put 1.
 
+ - **STORAGE_ONLY** (0, 1): This key defines the size of the whole Laravel project
+ is to be calculate (including `vendor`, `node_modules` etc.) or only the storage
+ directory. The expected value should be either 0 or 1. 
 
 Output
 ------
