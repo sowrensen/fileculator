@@ -67,10 +67,9 @@ def get_pattern():
 def validate_root_directory():
     """Check if the provided root directory is valid."""
     try:
-        root = Path(get_project_root())
-        if not os.path.exists(root):
+        if not os.path.exists(get_project_root()):
             raise IOError('Error! Project directory not found, aborting...')
-        return root
+        return Path(get_project_root())
     except IOError as error:
         print(str(error))
         sys.exit(1)
