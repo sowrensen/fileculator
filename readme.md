@@ -102,12 +102,11 @@ pipenv from cron, better you create a bash script like this.
 ```
 #!/bin/sh
 
-PYTHON="/path/to/pipenv/python"
 FILECULATOR="/path/to/fileculator"
-PIPENV="/path/to/pipenv"
-SCRIPT="fileculator.py"
+PYTHON="${FILECULATOR}/venv/bin/python"
+SCRIPT="${FILECULATOR}/fileculator.py"
 
-cd "${FILECULATOR}" && "${PIPENV}" run "${PYTHON}" "${SCRIPT}"
+cd "${FILECULATOR}" && "${PYTHON}" "${SCRIPT}"
 ```
 
 Make the bash script executable by running:
