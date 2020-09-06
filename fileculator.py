@@ -4,16 +4,20 @@
 | fileculator.py
 | ------------------------------------------------------------
 | This scripts calculates the total size of the 'storage/app'
-| directory (user uploaded files) of multiple Laravel apps. 
-| Define the project root and depth in .env file and run 
+| directory (user uploaded files) of multiple Laravel apps.
+| Define the project root and depth in .env file and run
 | the script as a cron job.
 |
 """
+import json
 import os
+import sys
 from pathlib import Path
 from datetime import datetime
-import json
-import sys
+from dotenv import dotenv_values
+
+print('Reading parameters from .env file...')
+params = dotenv_values(dotenv_path='.env')
 
 
 def calculate_size(project_root, project_depth):
@@ -90,9 +94,11 @@ def run():
     """
     try:
         valid_depths = (1, 2)
-        print('Reading environment variables from .env file...')
-        project_root = os.environ['PROJECT_ROOT']
-        project_depth = os.environ['PROJECT_DEPTH']
+        if not params:
+            raise FileNotFoundError("Error! .env file is not found.")
+        
+        project_root = params['PROJECT_ROOT']
+        project_depth = params['PROJECT_DEPTH']
 
         if not project_root:
             raise ValueError(
